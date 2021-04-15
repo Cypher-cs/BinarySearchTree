@@ -117,7 +117,19 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
                 }
             }
             // case 2
-            else if ()
+            else if (temp.getLeft() != null && temp.getRight() == null) {
+                if (parent == null) {
+                    root = root.getLeft();
+                }
+                else {
+                    if (deletingElement.compareTo(parent.getData()) < 0) {
+                        parent.setLeft(temp.getLeft());
+                    }
+                    else {
+                        parent.setRight(temp.getLeft());
+                    }
+                }
+            }
 
         } else {
             System.out.println("element cannot be deleted");
