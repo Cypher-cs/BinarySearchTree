@@ -7,33 +7,46 @@
 */
 package implementation;
 
-public class MyBinarySearchTree<E extends Comparable> {
+public class MyBinarySearchTree<E extends Comparable<E>> {
     public Node<E> root;
 
-    public void insert(int element) {
-        Node<E> node = new Node<>(element);
+    public Node<E> getRoot() {
+        return root;
+    }
+
+    private boolean isEmpty() {
         if (root == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void insert(E element) {
+        Node<E> node = new Node<>(element);
+        if (isEmpty()) {
             root = node;
         } else {
             Node<E> temp = root;
             Node<E> parent = null;
             while (temp != null) {
                 parent = temp;
-                if (element < temp.getData()) {
-                    temp = temp.left;
-                } else if (element > temp.getData()) {
-                    temp = temp.right;
+                if (element.compareTo(temp.getData()) <= 0) {
+                    temp = temp.getLeft();
+                } else {
+                    temp = temp.getRight();
                 }
             }
-            if (element < parent.getData()) {
+            if (element.compareTo(parent.getData()) <= 0) {
                 parent.setLeft(node);
-            } else if (element > parent.getData()) {
+            } else if (element.compareTo(parent.getData()) > 0) {
                 parent.setRight(node);
             }
         }
     }
 
-    public boolean search(int element) {
+    public boolean search(E element) {
         Node<E> temp = root;
         boolean response = false;
         while (temp != null) {
@@ -41,10 +54,10 @@ public class MyBinarySearchTree<E extends Comparable> {
                 response = true;
                 break;
             } else {
-                if (element < temp.getData()) {
-                    temp = temp.left;
+                if (element.compareTo(temp.getData()) < 0) {
+                    temp = temp.getLeft();
                 } else {
-                    temp = temp.right;
+                    temp = temp.getRight();
                 }
             }
         }
