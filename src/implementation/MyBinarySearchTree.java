@@ -117,6 +117,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
                 }
             }
             // case 2
+            // check hasLeftNode in temp then true
             else if (temp.getLeft() != null && temp.getRight() == null) {
                 if (parent == null) {
                     root = root.getLeft();
@@ -130,9 +131,50 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
                     }
                 }
             }
+            // check hasRightNode in temp then true
+            else if (temp.getRight() != null && temp.getLeft() == null) {
+                if (parent == null) {
+                    root = root.getRight();
+                }
+                else {
+                    if (deletingElement.compareTo(parent.getData()) < 0) {
+                        parent.setLeft(temp.getRight());
+                    }
+                    else {
+                        parent.setRight(temp.getRight());
+                    }
+                }
+            }
+
+            // case 3 two children
+            else {
+                Node<E> successor = getSuccessor(temp);
+                // delete successor
+                delete(successor.getData());
+
+            }
 
         } else {
             System.out.println("element cannot be deleted");
+        }
+    }
+
+    private Node<E> getSuccessor(Node<E> node) {
+        Node<E> response = null;
+        Node<E> temp = node.getRight();
+        while (temp.getLeft() != null) {
+            temp = temp.getLeft();
+        }
+        response = temp;
+        return response;
+    }
+
+    private boolean hasRightNode(Node<E> temp) {
+        if (temp.getRight() != null && temp.getLeft() == null) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
