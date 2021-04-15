@@ -8,19 +8,14 @@
 package implementation;
 
 public class MyBinarySearchTree<E extends Comparable<E>> {
-    public Node<E> root;
+    private Node<E> root;
 
     public Node<E> getRoot() {
         return root;
     }
 
     private boolean isEmpty() {
-        if (root == null) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return root == null;
     }
 
     public void insert(E element) {
@@ -66,7 +61,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
 
     // In Order Traversal
     public void inOrder(Node<E> node) {
-        if (node != null){
+        if (node != null) {
             // call inOrder to process left SubTree
             inOrder(node.getLeft());
             System.out.print(node.getData() + ", ");
@@ -90,5 +85,46 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
             postOrder(node.getRight());
             System.out.print(node.getData() + ", ");
         }
+    }
+
+    public void delete(E deletingElement) {
+        Node<E> temp = root;
+        Node<E> parent = null;
+        while (temp != null) {
+            if (deletingElement.compareTo(temp.getData()) == 0) {
+                break;
+            } else {
+                parent = temp;
+                if (deletingElement.compareTo(temp.getData()) < 0) {
+                    temp = temp.getLeft();
+                } else {
+                    temp = temp.getRight();
+                }
+            }
+        }
+        if (temp != null) {
+            // case 1
+            if (isLeaf(temp)) {
+                // root node
+                if (parent == null) {
+                    root = null;
+                } else {
+                    if (deletingElement.compareTo(parent.getData()) < 0) {
+                        parent.setLeft(null);
+                    } else {
+                        parent.setRight(null);
+                    }
+                }
+            }
+            // case 2
+            else if ()
+
+        } else {
+            System.out.println("element cannot be deleted");
+        }
+    }
+
+    private boolean isLeaf(Node<E> temp) {
+
     }
 }
