@@ -151,7 +151,10 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
                 Node<E> successor = getSuccessor(temp);
                 // delete successor
                 delete(successor.getData());
+                // root case
+                if (parent == null) {
 
+                }
             }
 
         } else {
