@@ -97,7 +97,42 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
 
     @Override
     public void delete(E deletingElement) {
+        Node<E> temp = root;
+        Node<E> parent = null;
+        while (temp != null) {
+            if (deletingElement.compareTo(temp.getData()) == 0) {
+                break;
+            }
+            else {
+                parent = temp;
+                if (deletingElement.compareTo(temp.getData()) < 0) {
+                    temp = temp.getLeft();
+                }
+                else {
+                    temp = temp.getRight();
+                }
+            }
+        }
+        if (temp != null) {
+            // case 1:
+            if (isLeaf(temp)) {
+                if (parent == null) {
+                    root = null;
+                }
+                else {
+                    if (deletingElement.compareTo(parent.getData()) < 0) {
+                        parent.setLeft(null);
+                    }
+                    else {
+                        parent.setRight(null);
+                    }
+                }
+            }
 
+            // case 2:
+            // left child
+            else if (has)
+        }
     }
 
     private Node<E> getSuccessor(Node<E> node) {
@@ -112,6 +147,9 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
 
     private boolean hasRightNode(Node<E> temp) {
         return temp.getRight() != null && temp.getLeft() == null;
+    }
+    private boolean hasLeftNode(Node<E> temp) {
+        return temp.getLeft() != null && temp.getRight() == null;
     }
 
     private boolean isLeaf(Node<E> temp) {
