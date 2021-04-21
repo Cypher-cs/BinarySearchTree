@@ -19,13 +19,14 @@ public class MyMain {
         tree.insert(60);
         tree.insert(66);
         System.out.println("preOrder");
-        tree.preOrder(tree.root);
+        tree.preOrder(tree.getRoot());
         System.out.println();
+        tree.delete(66);
         System.out.println("InOrder");
-        tree.inOrder(tree.root);
+        tree.inOrder(tree.getRoot());
         System.out.println();
         System.out.println("PostOrder");
-        tree.postOrder(tree.root);
+        tree.postOrder(tree.getRoot());
         System.out.println();
     }
 }

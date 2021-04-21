@@ -7,17 +7,21 @@
 */
 package implementation;
 
-public class MyBinarySearchTree<E extends Comparable<E>> {
+import myinterface.BinarySearchTreeADT;
+
+public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearchTreeADT<E> {
     private Node<E> root;
 
     public Node<E> getRoot() {
         return root;
     }
 
-    private boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
         return root == null;
     }
 
+    @Override
     public void insert(E element) {
         Node<E> node = new Node<>(element);
         if (isEmpty()) {
@@ -41,6 +45,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
         }
     }
 
+    @Override
     public boolean search(E element) {
         Node<E> temp = root;
         boolean response = false;
@@ -60,6 +65,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
     }
 
     // In Order Traversal
+    @Override
     public void inOrder(Node<E> node) {
         if (node != null) {
             // call inOrder to process left SubTree
@@ -70,6 +76,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
     }
 
     // Pre Order Traversal
+    @Override
     public void preOrder(Node<E> node) {
         if (node != null) {
             System.out.print(node.getData() + ", ");
@@ -79,6 +86,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
     }
 
     // Post Order Traversal
+    @Override
     public void postOrder(Node<E> node) {
         if (node != null) {
             postOrder(node.getLeft());
@@ -87,80 +95,9 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
         }
     }
 
+    @Override
     public void delete(E deletingElement) {
-        Node<E> temp = root;
-        Node<E> parent = null;
-        while (temp != null) {
-            if (deletingElement.compareTo(temp.getData()) == 0) {
-                break;
-            } else {
-                parent = temp;
-                if (deletingElement.compareTo(temp.getData()) < 0) {
-                    temp = temp.getLeft();
-                } else {
-                    temp = temp.getRight();
-                }
-            }
-        }
-        if (temp != null) {
-            // case 1
-            if (isLeaf(temp)) {
-                // root node
-                if (parent == null) {
-                    root = null;
-                } else {
-                    if (deletingElement.compareTo(parent.getData()) < 0) {
-                        parent.setLeft(null);
-                    } else {
-                        parent.setRight(null);
-                    }
-                }
-            }
-            // case 2
-            // check hasLeftNode in temp then true
-            else if (temp.getLeft() != null && temp.getRight() == null) {
-                if (parent == null) {
-                    root = root.getLeft();
-                }
-                else {
-                    if (deletingElement.compareTo(parent.getData()) < 0) {
-                        parent.setLeft(temp.getLeft());
-                    }
-                    else {
-                        parent.setRight(temp.getLeft());
-                    }
-                }
-            }
-            // check hasRightNode in temp then true
-            else if (temp.getRight() != null && temp.getLeft() == null) {
-                if (parent == null) {
-                    root = root.getRight();
-                }
-                else {
-                    if (deletingElement.compareTo(parent.getData()) < 0) {
-                        parent.setLeft(temp.getRight());
-                    }
-                    else {
-                        parent.setRight(temp.getRight());
-                    }
-                }
-            }
 
-            // case 3 two children
-            else {
-                Node<E> successor = getSuccessor(temp);
-                // delete successor
-                delete(successor.getData());
-                // root case
-                successor.setLeft(temp.getLeft());
-                successor.setRight(temp.getRight());
-                if (parent == null) {
-                }
-            }
-
-        } else {
-            System.out.println("element cannot be deleted");
-        }
     }
 
     private Node<E> getSuccessor(Node<E> node) {
@@ -174,15 +111,10 @@ public class MyBinarySearchTree<E extends Comparable<E>> {
     }
 
     private boolean hasRightNode(Node<E> temp) {
-        if (temp.getRight() != null && temp.getLeft() == null) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return temp.getRight() != null && temp.getLeft() == null;
     }
 
     private boolean isLeaf(Node<E> temp) {
-        return false;
+        return temp.getLeft() == null && temp.getRight() == null;
     }
 }
