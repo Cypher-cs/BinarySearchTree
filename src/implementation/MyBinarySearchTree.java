@@ -37,6 +37,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
                     temp = temp.getRight();
                 }
             }
+            assert parent != null;
             if (element.compareTo(parent.getData()) <= 0) {
                 parent.setLeft(node);
             } else if (element.compareTo(parent.getData()) > 0) {
@@ -178,7 +179,7 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
     }
 
     private Node<E> getSuccessor(Node<E> node) {
-        Node<E> response = null;
+        Node<E> response;
         Node<E> temp = node.getRight();
         while (temp.getLeft() != null) {
             temp = temp.getLeft();
