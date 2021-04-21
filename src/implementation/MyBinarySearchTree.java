@@ -22,6 +22,25 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
     }
 
     @Override
+    public boolean search(E element) {
+        Node<E> temp = root;
+        boolean response = false;
+        while (temp != null) {
+            if (temp.getData() == element) {
+                response = true;
+                break;
+            } else {
+                if (element.compareTo(temp.getData()) < 0) {
+                    temp = temp.getLeft();
+                } else {
+                    temp = temp.getRight();
+                }
+            }
+        }
+        return response;
+    }
+
+    @Override
     public void insert(E element) {
         Node<E> node = new Node<>(element);
         if (isEmpty()) {
@@ -44,25 +63,6 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
                 parent.setRight(node);
             }
         }
-    }
-
-    @Override
-    public boolean search(E element) {
-        Node<E> temp = root;
-        boolean response = false;
-        while (temp != null) {
-            if (temp.getData() == element) {
-                response = true;
-                break;
-            } else {
-                if (element.compareTo(temp.getData()) < 0) {
-                    temp = temp.getLeft();
-                } else {
-                    temp = temp.getRight();
-                }
-            }
-        }
-        return response;
     }
 
     // In Order Traversal

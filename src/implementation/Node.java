@@ -22,10 +22,6 @@ public class Node<E extends Comparable<E>> {
         return data;
     }
 
-    public void setData(E data) {
-        this.data = data;
-    }
-
     public Node<E> getLeft() {
         return left;
     }
