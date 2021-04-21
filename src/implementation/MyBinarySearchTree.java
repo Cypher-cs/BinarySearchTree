@@ -131,7 +131,49 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
 
             // case 2:
             // left child
-            else if (has)
+            else if (hasLeftNode(temp)) {
+                if (parent == null) {
+                    root = root.getLeft();
+                }
+                else if (deletingElement.compareTo(parent.getData()) < 0) {
+                    parent.setLeft(temp.getLeft());
+                }
+                else {
+                    parent.setRight(temp.getLeft());
+                }
+            }
+            // right child
+            else if (hasRightNode(temp)) {
+                if (parent == null) {
+                    root = root.getRight();
+                }
+                else if (deletingElement.compareTo(parent.getData()) < 0) {
+                    parent.setLeft(temp.getRight());
+                }
+                else {
+                    parent.setRight(temp.getRight());
+                }
+            }
+            // case 3
+            // two children
+            else {
+                Node<E> successor = getSuccessor(temp);
+                delete(successor.getData());
+                successor.setLeft(temp.getLeft());
+                successor.setRight(temp.getRight());
+                if (parent == null) {
+                    root = successor;
+                }
+                else if (deletingElement.compareTo(parent.getData()) < 0) {
+                    parent.setLeft(successor);
+                }
+                else {
+                    parent.setRight(successor);
+                }
+            }
+        }
+        else {
+            System.out.println("Not to be deleted... ");
         }
     }
 
