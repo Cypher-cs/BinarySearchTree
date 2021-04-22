@@ -10,4 +10,5 @@ public interface BinarySearchTreeADT<E extends Comparable<E>> {
     void preOrder(Node<E> node);
     void postOrder(Node<E> node);
     void delete(E element);
+    int height(Node<E> node);
 }

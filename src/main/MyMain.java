@@ -18,9 +18,12 @@ public class MyMain {
         tree.insert(45);
         tree.insert(60);
         tree.insert(66);
+        tree.insert(70);
+        tree.insert(55);
         System.out.println("preOrder");
         tree.preOrder(tree.getRoot());
         System.out.println();
+        System.out.println(tree.height(tree.getRoot()));
         tree.delete(66);
         System.out.println("InOrder");
         tree.inOrder(tree.getRoot());

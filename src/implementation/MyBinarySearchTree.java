@@ -178,6 +178,23 @@ public class MyBinarySearchTree<E extends Comparable<E>> implements BinarySearch
         }
     }
 
+    @Override
+    public int height(Node<E> node) {
+        if (node == null) {
+            return -1;
+        }
+        else return 1 + maxDep(height(node.getLeft()), height(node.getRight()));
+    }
+
+    private int maxDep(int leftHeight, int rightHeight) {
+        if (leftHeight > rightHeight) {
+            return leftHeight;
+        }
+        else {
+            return rightHeight;
+        }
+    }
+
     private Node<E> getSuccessor(Node<E> node) {
         Node<E> response;
         Node<E> temp = node.getRight();
